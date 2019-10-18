@@ -1,0 +1,1 @@
+FOR /L %%G IN (1,1,1) DO msg * /server:10.0.77.123 /time:0  I can see you!
