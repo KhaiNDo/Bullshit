@@ -1,0 +1,56 @@
+-- Database: Reg
+
+-- DROP DATABASE "Reg";
+
+CREATE DATABASE "Reg"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'English_United Kingdom.1252'
+    LC_CTYPE = 'English_United Kingdom.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+-- Table: public."Passport"
+
+-- DROP TABLE public."Passport";
+
+CREATE TABLE public."Passport"
+(
+    "Passport_ID" bigint NOT NULL,
+    "Valid_Date" "char" NOT NULL,
+    "Country_of_Issue" "char" NOT NULL,
+    CONSTRAINT "Passport_pkey" PRIMARY KEY ("Passport_ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Passport"
+    OWNER to postgres;
+
+
+-- Table: public."Person"
+
+-- DROP TABLE public."Person";
+
+CREATE TABLE public."Person"
+(
+    "Person_ID" bigint NOT NULL,
+    "First_Name" "char" NOT NULL,
+    "Last_Name" "char" NOT NULL,
+    "DOB" "char" NOT NULL,
+    "Country" "char" NOT NULL,
+    "Passport_ID" bigint NOT NULL,
+    CONSTRAINT "Person_pkey" PRIMARY KEY ("Person_ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Person"
+    OWNER to postgres;
+
