@@ -12,10 +12,10 @@ def run():
         stub = reg_pb2_grpc.RegStub(channel)
 
         # create passport
-        stub.create_passport(reg.Request(message='1;"20-02-2019";"VN"'))
+        stub.create_passport(reg_pb2.Request(message='5121;"20-02-2019";"VN"'))
 
         # add order
-        stub.add_to_person(reg.Request(message='1;51703124'))
+        stub.add_to_person(reg_pb2.Request(message='5121;51703124'))
 
         # get order list 
         order_list = stub.getlist(reg_pb2.Request(message=''))

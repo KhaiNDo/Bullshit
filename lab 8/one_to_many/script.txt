@@ -45,17 +45,15 @@ INSERT INTO public.customer(
 	VALUES (51703092, 'Hoang', 'hoangtruong@gmail.com');
 
 
+-- Table: public.order_catalog
 
+-- DROP TABLE public.order_catalog;
 
--- Table: public."order"
-
--- DROP TABLE public."order";
-
-CREATE TABLE public."order"
+CREATE TABLE public.order_catalog
 (
-    "Cost" bigint NOT NULL,
-    "Order_Date" text COLLATE pg_catalog."default" NOT NULL,
     "Order_ID" bigint NOT NULL,
+    "Order_Date" text COLLATE pg_catalog."default" NOT NULL,
+    "Cost" bigint NOT NULL,
     "Customer_ID" bigint NOT NULL,
     CONSTRAINT order_pkey PRIMARY KEY ("Order_ID")
 )
@@ -64,7 +62,10 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE public."order"
+ALTER TABLE public.order_catalog
     OWNER to postgres;
 
 
+INSERT INTO order_catalog(
+	"Order_ID", "Order_Date", "Cost", "Customer_ID") 
+	VALUES (0, '05-04-2020', 0, 51703124);

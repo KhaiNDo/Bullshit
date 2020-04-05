@@ -29,15 +29,17 @@ class Manager(purchase_pb2_grpc.MakeOrderServicer):
         cur = con.cursor()
         
         # Create parameter
-        order_id = int(cmd[0])
-        date = date.today().strftime("%Y-%m-%d")
-        cost = int(cmd[1])
-        customer_id = int(cmd[2]) 
+        cur.execute("SELECT COUNT(*) FROM order_catalog")
+        order_id = cur.fetchone()[0] + 1
+        today = date.today().strftime("%Y-%m-%d")
+        cost = int(cmd[0])
+        customer_id = int(cmd[1]) 
 
         # Query
-        query = "INSERT INTO order(Order_ID, Order_Date, Cost, Customer_ID) VALUES ({}, '{}', {}, {})".format(order_id, date, cost, customer_id)
+        query = '''INSERT INTO order_catalog("Order_ID", "Order_Date", "Cost", "Customer_ID") VALUES ({}, '{}', {}, {})'''.format(order_id, today, cost, customer_id)
         cur.execute(query);
 
+        # print(query)
         # Commit the current transaction
         con.commit()
         # Close server
@@ -53,7 +55,7 @@ class Manager(purchase_pb2_grpc.MakeOrderServicer):
         
         # Create a cursor object
         cur = con.cursor() 
-        cur.execute("SELECT * from order")
+        cur.execute("SELECT * from order_catalog")
         response = cur.fetchall()
         # Commit the current transaction
         con.commit()

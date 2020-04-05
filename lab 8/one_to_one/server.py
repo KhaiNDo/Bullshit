@@ -17,7 +17,7 @@ port = "5432"
 
 print("Server is running!")
 
-class Manager(purchase_pb2_grpc.MakeOrderServicer):
+class Manager(reg_pb2_grpc.RegServicer):
 
     def create_passport(self, request, context):
         cmd = request.message.split(";")
@@ -34,7 +34,7 @@ class Manager(purchase_pb2_grpc.MakeOrderServicer):
         country = cmd[2]
 
         # Query
-        query = "INSERT INTO order(Passport_ID, Valid_Date, Country_of_Issue, Customer_ID) VALUES ({}, '{}', '{}')".format(passport_id, valid_date, country)
+        query = '''INSERT INTO Passport("Passport_ID", "Valid_Date", "Country_of_Issue") VALUES ({}, '{}', '{}')'''.format(passport_id, valid_date, country)
         cur.execute(query);
 
         # Commit the current transaction
@@ -42,11 +42,11 @@ class Manager(purchase_pb2_grpc.MakeOrderServicer):
         # Close server
         con.close()
         
-        print('Order added!')
+        print('Created!')
         return reg_pb2.Response(message='Created!')
 
     
-    def create_passport(self, request, context):
+    def add_to_person(self, request, context):
         cmd = request.message.split(";")
 
         # Set up a connection to the BookShelf server
@@ -60,7 +60,7 @@ class Manager(purchase_pb2_grpc.MakeOrderServicer):
         person_id = int(cmd[1])
 
         # Query
-        query = "INSERT INTO order(Passport_ID) VALUES ({}) Where Person_ID = {}".format(passport_id, person_id)
+        query = '''UPDATE Person SET "Passport_ID" = {} WHERE "Person_ID" = {};'''.format(passport_id, person_id)
         cur.execute(query);
 
 
